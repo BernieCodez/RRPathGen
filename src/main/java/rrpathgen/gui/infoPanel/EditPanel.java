@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.text.NumberFormat;
 
+import static rrpathgen.gui.ModernUIStyles.*;
+
 public class EditPanel extends JPanel {
 
     private final Main main;
@@ -24,7 +26,10 @@ public class EditPanel extends JPanel {
     EditPanel(Main main){
         this.main = main;
         this.setOpaque(true);
+        this.setBackground(BACKGROUND_MEDIUM);
         this.setLayout(new SpringLayout());
+        stylePanelWithTitle(this, "Edit Node");
+
         JLabel lX = new JLabel("X: ", JLabel.TRAILING);
         JLabel lY = new JLabel("Y: ", JLabel.TRAILING);
         JLabel lSplineHeading = new JLabel("Spline Heading: ", JLabel.TRAILING);
@@ -32,10 +37,23 @@ public class EditPanel extends JPanel {
         JLabel lName = new JLabel("Name: ", JLabel.TRAILING);
         JLabel lType = new JLabel("Type: ", JLabel.TRAILING);
 
+        // Apply modern styling to all labels
+        styleLabel(lX);
+        styleLabel(lY);
+        styleLabel(lSplineHeading);
+        styleLabel(lRobotHeading);
+        styleLabel(lName);
+        styleLabel(lType);
+
+        // Apply modern styling to text fields
+        styleTextField(x);
+        styleTextField(y);
+        styleTextField(splineHeading);
+        styleTextField(robotHeading);
+        styleTextField(name);
 
         type = new JComboBox<>();
-//        type = new JComboBox(Arrays.stream(Node.Type.values()).filter(i -> i.toString().contains("line")).toArray());
-
+        styleComboBox(type);
         type.setSelectedIndex(-1);
 
         this.add(lName);

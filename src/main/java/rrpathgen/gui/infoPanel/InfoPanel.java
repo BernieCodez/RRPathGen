@@ -6,6 +6,8 @@ import rrpathgen.data.ProgramProperties;
 import javax.swing.*;
 import java.awt.*;
 
+import static rrpathgen.gui.ModernUIStyles.*;
+
 public class InfoPanel extends JPanel {
 
     public SettingsPanel settingsPanel;
@@ -17,12 +19,13 @@ public class InfoPanel extends JPanel {
         this.settingsPanel = new SettingsPanel(main, props);
         this.editPanel = new EditPanel(main);
         this.markerPanel = new MarkerPanel(main);
-        this.setBackground(Color.darkGray.darker());
+        this.setBackground(BACKGROUND_DARK);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(BorderFactory.createEmptyBorder(PADDING_MEDIUM, PADDING_MEDIUM, PADDING_MEDIUM, PADDING_MEDIUM));
         this.add(editPanel, BorderLayout.NORTH);
         this.add(markerPanel, BorderLayout.NORTH);
         markerPanel.setVisible(false);
-//        this.add(Box.createVerticalStrut((int)main.scale*100));
+        this.add(Box.createVerticalGlue());
         this.add(settingsPanel, BorderLayout.SOUTH);
         this.setVisible(true);
     }

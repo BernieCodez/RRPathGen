@@ -37,6 +37,7 @@ public class Main extends JFrame {
     public static Color dCyan = cyan.darker();
     public static Color dDarkPurple = darkPurple.darker();
 
+    private static String currentFieldImage = "field-2024-into-the-deep-juice-dark.jpg";
 
     public static int currentM = 0;
     public static int currentN = -1;
@@ -86,6 +87,12 @@ public class Main extends JFrame {
                 path = System.getProperty("user.home") + "/.RRPathGen/config.properties";
             properties = new ProgramProperties(new File(path));
 
+            // Load field image preference
+            String fieldImage = properties.prop.getProperty("FIELD_IMAGE");
+            if (fieldImage != null && !fieldImage.isEmpty()) {
+                currentFieldImage = fieldImage;
+            }
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -98,7 +105,7 @@ public class Main extends JFrame {
         drawPanel = new DrawPanel(managers,this, properties);
         buttonPanel = new ButtonPanel(managers,this, properties);
         infoPanel = new InfoPanel(this, properties);
-        this.getContentPane().setBackground(Color.darkGray.darker());
+        this.getContentPane().setBackground(new Color(30, 30, 35)); // Modern dark background
         GridBagLayout layout = new GridBagLayout();
         this.getContentPane().setLayout(layout);
 
@@ -255,6 +262,19 @@ public class Main extends JFrame {
 
     public static LinkedList<NodeManager> getManagers() {
         return managers;
+    }
+
+    public static String getCurrentFieldImage() {
+        return currentFieldImage;
+    }
+
+    public static void setCurrentFieldImage(String fieldImage) {
+        currentFieldImage = fieldImage;
+        properties.prop.setProperty("FIELD_IMAGE", fieldImage);
+        saveConfig();
+        if (drawPanel != null) {
+            drawPanel.repaint();
+        }
     }
 }
 

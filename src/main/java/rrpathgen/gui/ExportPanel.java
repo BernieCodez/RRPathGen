@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
+import static rrpathgen.gui.ModernUIStyles.*;
+
 public class ExportPanel extends JPanel {
 
     JTextArea field = new JTextArea();
@@ -23,15 +25,29 @@ public class ExportPanel extends JPanel {
 
         this.main = main;
         this.setOpaque(true);
-        this.setBackground(Color.darkGray.darker());
+        this.setBackground(BACKGROUND_DARK);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(BorderFactory.createEmptyBorder(PADDING_MEDIUM, PADDING_MEDIUM, PADDING_MEDIUM, PADDING_MEDIUM));
 
         this.setMinimumSize(new Dimension(200,10));
+
+        // Apply modern styling
+        styleTextArea(field);
+        styleScrollPane(scroll);
+        styleCheckBox(dataType);
+        styleCheckBox(poseEstimate);
+        stylePrimaryButton(copy);
+
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        // Add components with spacing
         this.add(dataType, BorderLayout.WEST);
+        this.add(Box.createVerticalStrut(PADDING_SMALL));
         this.add(poseEstimate, BorderLayout.EAST);
+        this.add(Box.createVerticalStrut(PADDING_MEDIUM));
         this.add(copy);
+        this.add(Box.createVerticalStrut(PADDING_SMALL));
         this.add(scroll);
         this.setVisible(true);
 

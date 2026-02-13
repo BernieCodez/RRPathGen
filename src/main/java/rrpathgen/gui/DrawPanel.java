@@ -163,7 +163,7 @@ public class DrawPanel extends JPanel {
                 Main.scale(nodeManager.undo, Main.scale, oldScale);
                 Main.scale(nodeManager.redo, Main.scale, oldScale);
             });
-        g.drawImage(new ImageIcon(Objects.requireNonNull(Main.class.getResource("/field-2024-into-the-deep-juice-dark.jpg"))).getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(new ImageIcon(Objects.requireNonNull(Main.class.getResource("/" + Main.getCurrentFieldImage()))).getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
         if (preRenderedSplines == null || preRenderedSplines.getWidth() != this.getWidth())
             renderBackgroundSplines();
         g.drawImage(preRenderedSplines, 0, 0, null);

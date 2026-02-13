@@ -11,6 +11,8 @@ import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.Objects;
 
+import static rrpathgen.gui.ModernUIStyles.*;
+
 public class SettingsPanel extends JPanel {
 
     private final Main main;
@@ -26,13 +28,15 @@ public class SettingsPanel extends JPanel {
         this.robot = properties;
         this.main = main;
         this.setOpaque(true);
-//        this.setPreferredSize(new Dimension((int) Math.floor(30 * main.scale), (int) Math.floor(40 * main.scale)));
+        this.setBackground(BACKGROUND_MEDIUM);
         this.setLayout(new SpringLayout());
+        stylePanelWithTitle(this, "Settings");
 
         library = new JComboBox<>(ProgramProperties.Library.values());
-//        set the index to the selected library in the config
+        styleComboBox(library);
         library.setSelectedIndex(Objects.requireNonNull(ProgramProperties.Library.valueOf(robot.prop.getProperty("LIBRARY"))).ordinal());
         JLabel lLibrary = new JLabel("Library: ", JLabel.TRAILING);
+        styleLabel(lLibrary);
         this.add(lLibrary);
         lLibrary.setLabelFor(library);
         this.add(library);
@@ -45,8 +49,9 @@ public class SettingsPanel extends JPanel {
                 input = new JFormattedTextField(formatter);
             input.setCursor(new Cursor(Cursor.TEXT_CURSOR));
             input.setColumns(10);
-//            input.setMaximumSize(new Dimension((int)main.scale*5,10));
+            styleTextField(input);
             JLabel l = new JLabel(label + ": ", JLabel.TRAILING);
+            styleLabel(l);
             this.add(l);
             l.setLabelFor(input);
             this.add(input);

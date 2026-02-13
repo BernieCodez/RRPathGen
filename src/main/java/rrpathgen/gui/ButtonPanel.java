@@ -15,6 +15,8 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 
+import static rrpathgen.gui.ModernUIStyles.*;
+
 public class ButtonPanel extends JPanel {
 
     private final JButton exportButton = new JButton("Export");
@@ -23,6 +25,7 @@ public class ButtonPanel extends JPanel {
     private final JButton clearButton = new JButton("Clear");
     private final JButton undoButton = new JButton("Undo");
     private final JButton redoButton = new JButton("Redo");
+    private final JButton fieldSelectorButton = new JButton("⚙ Field");
     private LinkedList<NodeManager> managers;
     private Main main;
     private ProgramProperties robot;
@@ -31,8 +34,19 @@ public class ButtonPanel extends JPanel {
         this.robot = props;
         this.main = main;
         this.managers = managers;
-        this.setMinimumSize(new Dimension(0,20));
-        this.setLayout(new GridLayout(1, 4, 1, 1));
+        this.setMinimumSize(new Dimension(0,30));
+        this.setBackground(BACKGROUND_MEDIUM);
+        this.setLayout(new GridLayout(1, 7, 5, 5));
+        this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        // Apply modern styling to all buttons
+        styleButton(exportButton);
+        styleButton(importButton);
+        styleButton(flipButton);
+        styleButton(clearButton);
+        styleButton(undoButton);
+        styleButton(redoButton);
+        stylePrimaryButton(fieldSelectorButton);
 
         exportButton.setFocusable(false);
         importButton.setFocusable(false);
@@ -40,16 +54,28 @@ public class ButtonPanel extends JPanel {
         clearButton.setFocusable(false);
         undoButton.setFocusable(false);
         redoButton.setFocusable(false);
+        fieldSelectorButton.setFocusable(false);
+
         this.add(exportButton);
         this.add(importButton);
         this.add(flipButton);
         this.add(clearButton);
         this.add(undoButton);
         this.add(redoButton);
+        this.add(fieldSelectorButton);
 
         this.setVisible(true);
 
         exportButton.addActionListener(e -> export());
+
+        fieldSelectorButton.addActionListener(e -> {
+            FieldSelectorDialog dialog = new FieldSelectorDialog(main, Main.getCurrentFieldImage());
+            dialog.setVisible(true);
+            String selectedField = dialog.getSelectedField();
+            if (selectedField != null && !selectedField.equals(Main.getCurrentFieldImage())) {
+                Main.setCurrentFieldImage(selectedField);
+            }
+        });
 
         flipButton.addActionListener(e -> {
             main.flip();

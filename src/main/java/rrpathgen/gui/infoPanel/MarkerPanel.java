@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.text.NumberFormat;
 
+import static rrpathgen.gui.ModernUIStyles.*;
+
 public class MarkerPanel extends JPanel {
 
     private final Main main;
@@ -26,11 +28,25 @@ public class MarkerPanel extends JPanel {
         this.main = main;
         type.setSelectedIndex(-1);
         this.setOpaque(true);
+        this.setBackground(BACKGROUND_MEDIUM);
         this.setLayout(new SpringLayout());
+        stylePanelWithTitle(this, "Edit Marker");
+
         JLabel lDisplacement = new JLabel("Displacement: ", JLabel.TRAILING);
         JLabel lCode = new JLabel("Code: ", JLabel.TRAILING);
         JLabel lType = new JLabel("Type: ", JLabel.TRAILING);
         JLabel lName = new JLabel("Name: ", JLabel.TRAILING);
+
+        // Apply modern styling
+        styleLabel(lDisplacement);
+        styleLabel(lCode);
+        styleLabel(lType);
+        styleLabel(lName);
+
+        styleTextField(displacement);
+        styleTextField(code);
+        styleTextField(name);
+        styleComboBox(type);
 
         this.add(lName);
         lName.setLabelFor(name);
